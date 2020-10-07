@@ -1,0 +1,9 @@
+a {
+  cursor: pointer;
+}
+.navbar-brand {
+  margin-left: auto;
+}
+#navbarNav {
+  justify-content: flex-end;
+}
