@@ -1,11 +1,34 @@
+const signedOutLinks = document.querySelectorAll(".signed-out");
+const signedInLinks = document.querySelectorAll(".signed-in");
+
 // Listen for the auth status change
 auth.onAuthStateChanged((user) => {
-  console.log(user); // onLogin user is present as object
-  // onLogout user is null
   if (user) {
-    console.log("User is Logged In");
+    // if user is logged in
+    db.collection("guides")
+      .orderBy("title")
+      .get()
+      .then((snapshot) => {
+        setupGuides(snapshot.docs);
+
+        // After guides are shown we'll hide and show the required links
+        signedInLinks.forEach((link) => {
+          link.style.display = "block";
+        });
+
+        signedOutLinks.forEach((link) => {
+          link.style.display = "none";
+        });
+      });
   } else {
-    console.log("User is logged Out");
+    setupGuides([]);
+    signedInLinks.forEach((link) => {
+      link.style.display = "none";
+    });
+
+    signedOutLinks.forEach((link) => {
+      link.style.display = "block";
+    });
   }
 });
 
@@ -30,7 +53,7 @@ signupForm.addEventListener("submit", (e) => {
     });
 });
 
-// singout
+// signout
 
 const logoutBtn = document.querySelector(".logout");
 

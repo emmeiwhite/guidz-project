@@ -7,3 +7,7 @@ a {
 #navbarNav {
   justify-content: flex-end;
 }
+
+.nav-item .nav-link {
+  display: none;
+}

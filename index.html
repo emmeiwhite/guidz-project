@@ -21,7 +21,7 @@
   </head>
   <body>
     <!-- HEADER  -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
       <a class="navbar-brand" href="./index.html">Guidz Project</a>
       <button
         class="navbar-toggler"
@@ -37,13 +37,16 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" data-toggle="modal" data-target="#LoginModal"
+            <a
+              class="nav-link signed-out"
+              data-toggle="modal"
+              data-target="#LoginModal"
               >Login <span class="sr-only">(current)</span></a
             >
           </li>
           <li class="nav-item">
             <a
-              class="nav-link"
+              class="nav-link signed-out"
               href="#"
               data-toggle="modal"
               data-target="#SignupModal"
@@ -51,14 +54,14 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Account</a>
+            <a class="nav-link signed-in" href="#">Account</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link logout" href="#">Logout</a>
+            <a class="nav-link signed-in logout" href="#">Logout</a>
           </li>
           <li class="nav-item">
             <a
-              class="nav-link"
+              class="nav-link signed-in"
               href="#"
               data-toggle="modal"
               data-target="#CreateGuidzModal"
@@ -70,7 +73,10 @@
     </nav>
 
     <!-- MAIN CONTENT -->
-
+    <div class="container">
+      <!-- Guides goes here | We use Bootstrap Accordian -->
+      <div class="accordion" id="accordionParent"></div>
+    </div>
     <!-- 1) LOGIN MODAL -->
     <div
       class="modal fade"
