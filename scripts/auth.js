@@ -1,3 +1,4 @@
+// Conditional Menus
 const signedOutLinks = document.querySelectorAll(".signed-out");
 const signedInLinks = document.querySelectorAll(".signed-in");
 
@@ -7,8 +8,8 @@ auth.onAuthStateChanged((user) => {
     // if user is logged in
     db.collection("guides")
       .orderBy("title")
-      .get()
-      .then((snapshot) => {
+      .onSnapshot((snapshot) => {
+        // Setting up Real-Time Listener
         setupGuides(snapshot.docs);
 
         // After guides are shown we'll hide and show the required links
@@ -45,11 +46,11 @@ signupForm.addEventListener("submit", (e) => {
     .createUserWithEmailAndPassword(email, password)
     .then((cred) => {
       signupForm.reset();
-      const SignupModal = document.querySelector("#SignupModal");
       $("#SignupModal").modal("hide");
     })
     .catch((err) => {
       console.log("Error: Couldn't signup the User");
+      console.log(err.message);
     });
 });
 
@@ -75,10 +76,34 @@ loginForm.addEventListener("submit", (e) => {
     .signInWithEmailAndPassword(email, password)
     .then((cred) => {
       loginForm.reset();
-      const LoginModal = document.querySelector("#LoginModal");
       $("#LoginModal").modal("hide");
     })
     .catch((err) => {
       console.log("ERROR: Could not login the user");
+    });
+});
+
+// create guide
+
+const createGuideForm = document.querySelector(".create-guide-form");
+
+createGuideForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const guideTitle = createGuideForm["GuideTitle"].value;
+  const guideContent = createGuideForm["GuideContent"].value;
+
+  db.collection("guides")
+    .add({
+      content: guideContent,
+      title: guideTitle,
+    })
+    .then((cred) => {
+      console.log("Data added successfully");
+      createGuideForm.reset();
+      $("#CreateGuidzModal").modal("hide");
+    })
+    .catch((err) => {
+      console.log("ERROR: Cound not add the data");
     });
 });
